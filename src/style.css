@@ -175,3 +175,6 @@ body {
 .intro-content select::selection {
     background: #4D5B9E;
 }
+.hideBtn {
+    display: none;
+}

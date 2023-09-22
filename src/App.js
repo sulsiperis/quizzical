@@ -11,8 +11,9 @@ export default function App() {
 * 4. styled and polished
 */
     const [start, setStart] = React.useState(false);
-    const [quizData, setQuizData] = React.useState({})
-    const [category, setCategory] = React.useState("https://opentdb.com/api.php?amount=6&category=9&difficulty=easy&type=multiple")
+    const [quizData, setQuizData] = React.useState()
+    const [category, setCategory] = 
+        React.useState("https://opentdb.com/api.php?amount=6&category=9&difficulty=easy&type=multiple")
     
 /*     React.useEffect(() => {        
         fetchData(category)
