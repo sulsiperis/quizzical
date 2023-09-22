@@ -66,7 +66,8 @@ export default function Questions(props) {
 
       
     function checkAnswers() {
-        if (QA==="answers") {           
+        if (QA==="answers") { 
+            props.reset()          
             setUserAnswers([])
             props.getData()
         }
@@ -127,7 +128,7 @@ export default function Questions(props) {
             <div className="questions-button-wrapper">
                 <span>{QA==="answers" && "You scored "+correctCount+"/6 correct answers"}</span>
                 <button 
-                    className={props.data === undefined?"hideBtn questions-button":"questions-button"} 
+                    className={props.data === undefined?"hideBtn questions-button":"questions-button"}
                     onClick={checkAnswers}>{QA==="questions"?"Check answers":"play again"}
                 </button>
             </div>

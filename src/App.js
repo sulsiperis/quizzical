@@ -15,7 +15,7 @@ export default function App() {
     const [category, setCategory] = 
         React.useState("https://opentdb.com/api.php?amount=6&category=9&difficulty=easy&type=multiple")
     
-/*     React.useEffect(() => {        
+    /*React.useEffect(() => {        
         fetchData(category)
     }, []) */
     const catTitle = Categories.find(el => { return el.url===category }).title;
@@ -26,17 +26,22 @@ export default function App() {
     }
 
     function letsStart() {
+        resetData()
         fetchData(category)
         setStart(true)
     }
     function goToIntro() {
-
         setStart(false)
     }
+
     function chCategory(url) {        
         setCategory(url)
         
- //       fetchData(category)
+    //fetchData(category)
+    }
+
+    function resetData() {
+        setQuizData()
     }
     //console.log(category)   
     return (
@@ -44,12 +49,13 @@ export default function App() {
                 { 
                     !start?
                     <Intro Cat={Categories} start={letsStart} changeCategory={chCategory} currCategory={category} />:
-                    <Questions 
-                        category={catTitle} 
-                        data={quizData} 
-                        getData={() => fetchData(category)} 
-                        changeCategory={() => goToIntro()} 
-                    /> 
+                    <Questions
+                        category={catTitle}
+                        data={quizData}
+                        getData={() => fetchData(category)}
+                        changeCategory={() => goToIntro()}
+                        reset={resetData}
+                    />
                 } 
                 
            </main>           

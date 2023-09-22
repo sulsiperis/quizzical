@@ -39,12 +39,10 @@ export default function Intro(props) {
             </div>
             <h1>Quizzical</h1>
             <p>Check your knowledge by doing this quiz</p>
-            <p>Choose category 
-                
+            <p>Choose category                 
                     <select name="categoryUrl" value={props.currCategory} onChange={handleChange}>
                         {catOptions}
-                    </select>
-                            
+                    </select>                            
             </p>
             <button onClick={props.start}>Start quiz</button>
         </div>
