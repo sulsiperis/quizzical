@@ -5,13 +5,13 @@ import { nanoid } from "nanoid";
 import Confetti from 'react-confetti' 
 
 export default function Questions(props) {
-
-    //console.log("component rerendered")
-
+    
     const [QA, setQA] = React.useState("questions")
     const [userAnswers, setUserAnswers] = React.useState([])
     const [correctCount, setCorrectCount] = React.useState(0)
     //console.log(userAnswers);
+
+    //console.log(correctCount)
 
     React.useEffect(() => {
         props.data && shuffleAnswers(props.data.results)
@@ -65,22 +65,29 @@ export default function Questions(props) {
         })          
     }
 
+    console.log(QA)
       
     function checkAnswers() {
         if (QA==="answers") { 
+            setCorrectCount(0)
+
+            //console.log(correctCount)
+
             props.reset()          
             setUserAnswers([])
             props.getData()
+        } else {
+            const res = props.data.results
+            let cnt = 0
+            for (let i=0;i<res.length;i++) {
+                if (decode(res[i].correct_answer) === userAnswers[i].correctAnswer) {
+                    cnt++
+                }
+            }
+            setCorrectCount(cnt)
         }
         setQA(prev => prev==="answers"?"questions":"answers")
-        const res = props.data.results
-        let cnt = 0
-        for (let i=0;i<res.length;i++) {
-            if (decode(res[i].correct_answer) === userAnswers[i].correctAnswer) {
-                 cnt++
-            }
-        }
-        setCorrectCount(cnt)
+        
         //console.log(res)
        
        // console.log(showAnswers)
@@ -125,7 +132,7 @@ export default function Questions(props) {
                   <path fillRule="evenodd" clipRule="evenodd" d="M-38.919 2.96445C-10.8241 1.07254 20.4975 -5.87426 40.8434 11.5469C63.3629 30.8293 69.9281 62.0589 61.4141 88.8747C53.3376 114.313 28.2818 132.992 -0.0909882 140.475C-23.9759 146.775 -45.6063 132.093 -68.3914 123.11C-92.9153 113.441 -125.606 110.575 -133.794 87.7612C-142.333 63.9714 -124.677 39.0277 -104.912 21.3621C-87.7687 6.03978 -63.0936 4.59238 -38.919 2.96445Z" fill="#DEEBF8"/>
                 </svg> 
             </div>
-            <h2 className="questions-category" onClick={intro}>({props.category})</h2>
+            <h2 className="questions-category" onClick={intro}>{props.data !== undefined && "(" + props.category + ")"}</h2>
                 {shuffledComp}               
             <div className="questions-button-wrapper">
                 <span>{QA==="answers" && "You scored "+correctCount+"/6 correct answers"}</span>
@@ -133,7 +140,9 @@ export default function Questions(props) {
                     className={props.data === undefined?"hideBtn questions-button":"questions-button"}
                     onClick={checkAnswers}>{QA==="questions"?"Check answers":"play again"}
                 </button>
+                
             </div>
+            
         </div>
         
     )

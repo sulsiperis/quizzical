@@ -2,6 +2,7 @@ import React from "react"
 import Intro from "./components/Intro"
 import Questions from "./components/Questions"
 import Categories from "./Categories";
+import Loading from "./components/Loading";
 
 export default function App() {
 /**
@@ -48,7 +49,7 @@ export default function App() {
            <main>
                 { 
                     !start?
-                    <Intro Cat={Categories} start={letsStart} changeCategory={chCategory} currCategory={category} />:
+                    <Intro Cat={Categories} start={letsStart} changeCategory={chCategory} currCategory={category} />: quizData === undefined ?Loading: 
                     <Questions
                         category={catTitle}
                         data={quizData}
