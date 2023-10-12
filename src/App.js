@@ -19,14 +19,18 @@ export default function App() {
     /*React.useEffect(() => {        
         fetchData(category)
     }, []) */
+    const [err, setErr] = React.useState()
     const catTitle = Categories.find(el => { return el.url===category }).title;
     function fetchData(url) {
         fetch(url) 
             .then(res => res.json())
             .then(data => setQuizData(data))
+            .catch(err => {handleErr(err)})
+            //.catch(err => {console.log(err)})
     }
 
     function letsStart() {
+        setErr()
         resetData()
         fetchData(category)
         setStart(true)
@@ -44,10 +48,18 @@ export default function App() {
     function resetData() {
         setQuizData()
     }
+    function handleErr(errMsg) {
+        
+        const errDelay = setTimeout(() => {
+            setErr(errMsg) 
+            setStart(false)
+        }, 6000)        
+    }
     //console.log(category)   
     return (
            <main>
-                { 
+                { err && <p className="error">Database connection error. Please try again later.</p> }
+                {                     
                     !start?
                     <Intro Cat={Categories} start={letsStart} changeCategory={chCategory} currCategory={category} />: quizData === undefined ?Loading: 
                     <Questions

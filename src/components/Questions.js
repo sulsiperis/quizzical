@@ -65,7 +65,7 @@ export default function Questions(props) {
         })          
     }
 
-    console.log(QA)
+    //(QA)
       
     function checkAnswers() {
         if (QA==="answers") { 
