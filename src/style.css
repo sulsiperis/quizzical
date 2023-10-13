@@ -37,6 +37,11 @@ body {
     font-weight: 400;
     padding-bottom: 30px;
 }
+.intro-content select {
+    margin-top: 8px;
+    max-width: 120px ;
+    color:#293264;
+}
 .intro-content button {
     width: 193px;
     height: 52px; 

@@ -4,3 +4,4 @@
 4. check if all answers checked +
 5. loading while loading +
 6. throw error when troubles fetching data +
+7. fix the confetti height +

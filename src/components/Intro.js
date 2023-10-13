@@ -38,8 +38,8 @@ export default function Intro(props) {
                 </svg> 
             </div>
             <h1>Quizzical</h1>
-            <p>Check your knowledge by doing this quiz</p>
-            <p>Choose category                 
+            <p>Check your knowledge by doing this quiz!</p>
+            <p>Choose category:
                     <select name="categoryUrl" value={props.currCategory} onChange={handleChange}>
                         {catOptions}
                     </select>                            
