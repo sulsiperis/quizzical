@@ -2,14 +2,17 @@ import React from "react";
 import { decode } from "html-entities";
 import Shuffled from "./Shuffled";
 import { nanoid } from "nanoid";
-import Confetti from 'react-confetti' 
+import Confetti from 'react-confetti'
+import { createPortal } from 'react-dom';
+import ModalContent from './ModalContent.js';
 
 export default function Questions(props) {
     
     const [QA, setQA] = React.useState("questions")
     const [userAnswers, setUserAnswers] = React.useState([])
     const [correctCount, setCorrectCount] = React.useState(0)
-    //console.log(userAnswers);
+    const [showModal, setShowModal] = React.useState(false);
+    console.log(userAnswers);
 
     //console.log(correctCount)
 
@@ -65,7 +68,15 @@ export default function Questions(props) {
         })          
     }
 
-    //(QA)
+    function howManySelected() {
+        let checkedCount = 0
+        for(let i=0;i<userAnswers.length;i++) {
+            if (userAnswers[i].correctAnswer !== "") {
+                checkedCount++
+            }
+        }
+        return checkedCount
+    }
       
     function checkAnswers() {
         if (QA==="answers") { 
@@ -76,17 +87,27 @@ export default function Questions(props) {
             props.reset()          
             setUserAnswers([])
             props.getData()
+            setQA("questions")
         } else {
-            const res = props.data.results
-            let cnt = 0
-            for (let i=0;i<res.length;i++) {
-                if (decode(res[i].correct_answer) === userAnswers[i].correctAnswer) {
-                    cnt++
+            const selectedAnswers = howManySelected()
+            if ( selectedAnswers < 6) {
+                //console.log("Choose one of the answers for all the questions!")
+                //alert("Choose one of the answers for all the questions!")
+                //setCheckAll("Choose one of the answers for all the questions!")
+                setShowModal(true)
+            } else {
+                const res = props.data.results
+                let cnt = 0
+                for (let i=0;i<res.length;i++) {
+                    if (decode(res[i].correct_answer) === userAnswers[i].correctAnswer) {
+                        cnt++
+                    }
                 }
+                setCorrectCount(cnt)
+                setQA("answers")
             }
-            setCorrectCount(cnt)
         }
-        setQA(prev => prev==="answers"?"questions":"answers")
+        //setQA(prev => prev==="answers"?"questions":"answers")
         
         //console.log(res)
        
@@ -121,6 +142,11 @@ export default function Questions(props) {
     })
     return (
         <div className="questions-content">
+            {showModal && createPortal(
+                <ModalContent msg="Choose one of the answers for all the questions!" onClose={() => setShowModal(false)} />,
+                document.body
+            )}
+            {/* {checkAll && <ModalDialog msg="Choose one of the answers for all the questions!" />} */}
             {(correctCount===6) && <Confetti numberOfPieces="234" />}
             <div className="intro-corner-tr">
                 <svg width="126" height="131" viewBox="0 0 126 131" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -141,8 +167,7 @@ export default function Questions(props) {
                     onClick={checkAnswers}>{QA==="questions"?"Check answers":"play again"}
                 </button>
                 
-            </div>
-            
+            </div>            
         </div>
         
     )

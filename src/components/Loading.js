@@ -1,6 +1,6 @@
 export default 
 
-<div class="ring">Loading
+<div className="ring">Loading
 <span></span>
 </div>
 

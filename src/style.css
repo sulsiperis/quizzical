@@ -6,7 +6,8 @@
 
 body {
     margin: 0;  
-    
+    position: relative;
+    z-index: 1;
 }
 .intro-content {
     display: flex;
@@ -19,7 +20,7 @@ body {
     min-height: 200px;
     min-width: 200px;
     position: relative;
-    z-index: 1;
+    z-index: 2;
 }
 
 .intro-content h1 {
@@ -181,9 +182,11 @@ body {
 /* loading animation */
 .ring
 {
-  position:absolute;
+  position:fixed;
+  z-index: 1;
   top:50%;
-  left:50%;
+  left:50%; 
+
   transform:translate(-50%,-50%);
   width:100px;
   height:100px;
@@ -204,6 +207,7 @@ body {
 {
   content:'';
   position:absolute;
+  z-index: 96;
   top:-3px;
   left:-3px;
   width:100%;
@@ -218,6 +222,7 @@ body {
 {
   display:block;
   position:absolute;
+  z-index: 96;
   top:calc(50% - 2px);
   left:50%;
   width:50%;
@@ -230,6 +235,7 @@ body {
 {
   content:'';
   position:absolute;
+  z-index: 95;
   width:16px;
   height:16px;
   border-radius:50%;
@@ -270,4 +276,47 @@ body {
     50% {
       opacity: 0;
     }
-  }
+}
+.modal-background {    
+    position: absolute;
+    z-index: 98;
+    width: 100%;
+    height: 100%;
+    opacity: 40%;
+    background: #acaeb9;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+}
+.modal {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    top: 50%;
+    font-size: 14px;   
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 99;
+    background: #4D5B9E;
+    opacity: 100%;
+    border-radius: 12px;
+    box-shadow: 0px 0px 6vw 2vw #000;
+    color: #F5F7FB;;
+    
+}
+.modal button {
+    background: #F5F7FB;
+    margin-top: 20px;
+    padding: 4px 22px 4px 22px;
+    border-radius: 8px;
+    border: 1px solid #000; 
+    cursor: pointer;
+    color: #293264;
+    font-size: 12px;
+    font-weight: 500;
+}

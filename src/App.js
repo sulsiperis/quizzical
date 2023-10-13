@@ -61,7 +61,9 @@ export default function App() {
                 { err && <p className="error">Database connection error. Please try again later.</p> }
                 {                     
                     !start?
-                    <Intro Cat={Categories} start={letsStart} changeCategory={chCategory} currCategory={category} />: quizData === undefined ?Loading: 
+                    <Intro Cat={Categories} start={letsStart} changeCategory={chCategory} currCategory={category} />: 
+                    quizData === undefined?
+                    Loading: 
                     <Questions
                         category={catTitle}
                         data={quizData}
