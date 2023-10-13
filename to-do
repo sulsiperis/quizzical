@@ -1,6 +1,6 @@
 1. empty screen from previous answers when changing categories +
 2. hide "check answers" button while fetching questions +
 3. salute when all answers correct +
-4. check if all answers checked
+4. check if all answers checked +
 5. loading while loading +
-6. throw error when troubles fetching data
+6. throw error when troubles fetching data +
