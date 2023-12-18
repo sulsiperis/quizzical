@@ -7,10 +7,11 @@
 
 # testing
 /coverage
-to-do
+
 
 # production
 /build
+/src/to-do
 
 # misc
 .DS_Store
